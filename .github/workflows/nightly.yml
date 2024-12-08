@@ -237,7 +237,7 @@ jobs:
           kurtosis files download ${{ env.ENCLAVE_NAME }} genesis /tmp
           cp /tmp/genesis.json templates/permissionless-node/genesis.json
 
-          # Deploy permisionless node.
+          # Deploy permissionless node.
           yq -Y --in-place '.deploy_zkevm_permissionless_node = true' params.yml
           kurtosis run --enclave=${{ env.ENCLAVE_NAME }} --args-file=params.yml .
           yq -Y --in-place '.deploy_zkevm_permissionless_node = false' params.yml # reset
@@ -276,7 +276,7 @@ jobs:
         working-directory: .github/scripts
         run: ./monitor-verified-batches.sh --rpc-url "$(kurtosis port print ${{ env.ENCLAVE_NAME }} cdk-erigon-node-001 http-rpc)"
 
-  # Deploy a standalone zkevm permisionless node against Sepolia (Ethereum Testnet).
+  # Deploy a standalone zkevm permissionless node against Sepolia (Ethereum Testnet).
   sepolia-pless-zkevm-node:
     if: github.repository == '0xPolygon/kurtosis-cdk' # Prevent this job to run on forks.
     runs-on: ubuntu-latest
@@ -287,7 +287,7 @@ jobs:
       - name: Install Kurtosis CDK tools
         uses: ./.github/actions/setup-kurtosis-cdk
 
-      - name: Deploy the permisionless node
+      - name: Deploy the permissionless node
         run: |
           # Disable all deployment steps
           yq -Y --in-place 'with_entries(if .value | type == "boolean" then .value = false else . end)' params.yml
